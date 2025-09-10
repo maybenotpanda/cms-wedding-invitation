@@ -6,8 +6,9 @@ use App\Http\Controllers\Invitation;
 use App\Http\Controllers\GenerateBarcode;
 use App\Http\Controllers\GenerateQrCode;
 
-Route::get('/', [Home::class, 'Index']);
-Route::get('/invitation', [Invitation::class, 'Index']);
+Route::get('/', [Home::class, 'index']);
+
+Route::get('/invitation', [Invitation::class, 'index']);
 Route::post('/invitation', [Invitation::class, 'store'])->name('invitation.store');
 
 Route::get('/qr-maps', [GenerateQrCode::class, 'index']);
