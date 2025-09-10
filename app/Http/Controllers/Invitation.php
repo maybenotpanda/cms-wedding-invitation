@@ -35,4 +35,28 @@ class Invitation
       return redirect()->back()->with('error', 'Gagal menyimpan tamu undangan: ' . $e->getMessage());
     }
   }
+
+  public function getBySlug($slug)
+  {
+    $guest = Guests::where('slug', $slug)->first();
+
+    if (!$guest) {
+      return response()->json([
+        'message' => 'Data not found'
+      ], 404);
+    }
+
+    return response()->json([
+      'responseCode' => 200,
+      'message' => 'success',
+      'data' => [
+        'name' => $guest->name,
+        'type' => $guest->type,
+        'isGift' => $guest->is_gift,
+        'createdAt' => $guest->created_at,
+        'updatedAt' => $guest->updated_at,
+        'deletedAt' => $guest->deleted_at,
+      ]
+    ]);
+  }
 }
