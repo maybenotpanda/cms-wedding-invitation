@@ -11,7 +11,6 @@
             style="opacity: .8">
         <span class="brand-text font-weight-light">Duck X Panda</span>
     </a>
-
     <div class="sidebar">
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -19,41 +18,31 @@
                 <li class="nav-item">
                     <a href="/" class="nav-link">
                         <i class="nav-icon	fas fa-home"></i>
-                        <p>
-                            Home
-                        </p>
+                        <p>Home</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="invitation" class="nav-link">
                         <i class="nav-icon 	fas fa-address-book"></i>
-                        <p>
-                            Tamu Undangan
-                        </p>
+                        <p>Tamu Undangan</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="messages" class="nav-link">
                         <i class="nav-icon fas fa-comments"></i>
-                        <p>
-                            Messages
-                        </p>
+                        <p>Messages</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="barcode" class="nav-link">
                         <i class="nav-icon 	fas fa-barcode"></i>
-                        <p>
-                            Barcode
-                        </p>
+                        <p>Barcode</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="qr-maps" class="nav-link">
                         <i class="nav-icon fas fa-compass"></i>
-                        <p>
-                            QR Maps
-                        </p>
+                        <p>QR Maps</p>
                     </a>
                 </li>
             </ul>

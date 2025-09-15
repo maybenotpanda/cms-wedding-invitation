@@ -2,7 +2,10 @@
 
 @section('title', 'Wedding Invited Guests')
 @section('page', 'Invitation')
+
 @include('partials.modal.add-guest')
+@include('partials.modal.delete-guest')
+@include('partials.modal.detail-guest')
 
 @section('content')
     <div class="callout callout-danger">
@@ -33,12 +36,14 @@
                             <td>{{ $guest->type ?? 'Basic' }}</td>
                             <td>
                                 <div class="row" style="gap: 2px">
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                        data-target="#update">
+                                    <button type="button" class="btn btn-success btn-sm"
+                                        onclick="copyMessage('{{ $guest->name }}', '{{ $guest->slug }}')">
+                                        <i class="fas fa-copy" style="width: 14px;"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-update" data-uuid="{{ $guest['id'] }}" data-name="{{ $guest['name'] }}" data-slug="{{ $guest['slug'] }}" data-type="{{ $guest['type'] }}" data-type="{{ $guest['type'] }}" data-isGift="{{ $guest['is_gift'] }}">
                                         <i class="fa fa-cog"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#delete">
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" data-uuid="{{ $guest->id }}">
                                         <i class="fas fa-trash" style="width: 14px;"></i>
                                     </button>
                                 </div>
@@ -88,3 +93,44 @@
         </div>
     </div>
 @endsection
+
+<script>
+    // copy
+    function copyMessage(name, slug) {
+        const message = `
+Assalamualaikum Wr. Wb.
+
+Bismillahirrohmaanirrohiim
+
+Kepada Yth.
+Bapak/Ibu/Saudara/i
+
+${name}
+____________________________
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, untuk menghadiri serta doa restu pada acara pernikahan kami:
+
+👰🏻‍♀️ MW Putri Meilinia H. Purba
+&
+🤵🏻 Muhammad Fariz Dzuhreza
+
+Berikut tautan untuk info lengkap undangan kami
+
+🔗 https://mw-reza.duckxpanda.com/${slug}
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.
+
+Wassalamualaikum Wr. Wb.
+
+Terima Kasih..
+
+Hormat kami,
+💍MW & Reza
+`;
+        navigator.clipboard.writeText(message).then(() => {
+            alert('Pesan berhasil disalin untuk ' + name);
+        }).catch(err => {
+            alert('Gagal menyalin pesan: ' + err);
+        });
+    }
+</script>
