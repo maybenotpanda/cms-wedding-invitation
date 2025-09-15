@@ -14,6 +14,9 @@ Route::get('/', [Home::class, 'index']);
 /* INVITATION */
 Route::get('/invitation', [Invitation::class, 'index']);
 Route::post('/invitation', [Invitation::class, 'store'])->name('invitation.store');
+Route::post('/invitation/update/{id}', [Invitation::class, 'update'])->name('guests.update');
+Route::delete('/invitation/delete/{id}', [Invitation::class, 'destroy'])->name('invitation.destroy');
+// Route::post('invitation/{id}/restore', [GuestController::class, 'restore'])->name('guests.restore');
 
 /* MESSAGES */
 Route::get('/messages', [MessageController::class, 'index']);

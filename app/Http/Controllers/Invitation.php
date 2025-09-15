@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvitationRequest;
-use App\Models\Guests;
+use App\Models\GuestModel;
 
 class Invitation
 {
   public function index()
   {
-    $guests = Guests::all();
+    $guests = GuestModel::all();
     return view('pages.invitation', compact('guests'));
   }
 
@@ -22,23 +22,48 @@ class Invitation
     try {
       foreach ($names as $i => $name) {
         if (!empty($name)) {
-          Guests::create([
+          GuestModel::create([
             'name' => $name,
-            'type' => !empty($types[$i]) ? $types[$i] : 'basic',
+            'type' => !empty($types[$i]) ? $types[$i] : 'Basic',
             'is_gift' => isset($shows[$i]) ? 0 : 1,
           ]);
         }
       }
 
       return redirect()->back()->with('success', 'Tamu undangan berhasil disimpan!');
-    } catch (\Exception $e) {
-      return redirect()->back()->with('error', 'Gagal menyimpan tamu undangan: ' . $e->getMessage());
+    } catch (\Exception $err) {
+      return redirect()->back()->with('error', 'Gagal menyimpan tamu undangan: ' . $err->getMessage());
+    }
+  }
+
+  public function update(InvitationRequest $request, $id)
+  {
+    try {
+      $guest = GuestModel::findOrFail($id);
+
+      $guest->name = $request->input('name');
+      $guest->save();
+
+      return redirect()->back()->with('success', 'Tamu undangan berhasil diubah!');
+    } catch (\Exception $err) {
+      return redirect()->back()->with('error', 'Gagal mengubah tamu undangan: ' . $err->getMessage());
+    }
+  }
+
+  public function destroy($id)
+  {
+    try {
+      $guest = GuestModel::findOrFail($id);
+      $guest->delete();
+      return redirect()->back()->with('success', 'Tamu undangan berhasil dihapus!');
+    } catch (\Exception $err) {
+      return redirect()->back()->with('error', 'Gagal menghapus tamu undangan: ' . $err->getMessage());
     }
   }
 
   public function getBySlug($slug)
   {
-    $guest = Guests::where('slug', $slug)->first();
+    $guest = GuestModel::where('slug', $slug)->first();
 
     if (!$guest) {
       return response()->json([
@@ -50,6 +75,7 @@ class Invitation
       'responseCode' => 200,
       'message' => 'success',
       'data' => [
+        'uuid' => $guest->id,
         'name' => $guest->name,
         'type' => $guest->type,
         'isGift' => $guest->is_gift,
