@@ -127,6 +127,45 @@
         });
 
         updateRemoveButtons();
+
+        // delete guest
+        $(document).ready(function() {
+            $('#modal-delete').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var invitationId = button.data('uuid');
+                var form = $('#deleteForm');
+                form.attr('action', '/invitation/' + invitationId);
+            });
+            $('#modal-update').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget)
+                var uuid = button.data('uuid')
+                var name = button.data('name')
+                var slug = button.data('slug')
+                var type = button.data('type')
+
+
+                $('#updateForm').attr('action', '/invitation?uuid=' + uuid);
+
+                $('#updateForm #name').val(name);
+                $('#updateForm #slug').val('www.mw-reza.duckxpanda.com/' + slug);
+            });
+
+            $('#modal-update').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var uuid = button.data('uuid');
+                var name = button.data('name');
+                var slug = button.data('slug');
+                var type = button.data('type');
+                var isGift = button.data('is_gift');
+                var type = button.data('type');
+                $('#updateForm select[name="type"]').val(type);
+                $('#updateForm').attr('action', '/invitation/update/' + uuid);
+
+                $('#updateForm #name').val(name);
+                $('#updateForm #slug').val('www.mw-reza.duckxpanda.com/' + slug);
+                $('#updateForm select[name="type"]').val(type);
+            });
+        });
     </script>
 </body>
 
