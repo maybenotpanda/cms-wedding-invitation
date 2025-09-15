@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use App\Models\Guests;
 
 class MessageModel extends Model
 {
     use HasFactory;
     protected $table = 'messages';
+
     protected $fillable = [
         'guest_id',
         'name',
